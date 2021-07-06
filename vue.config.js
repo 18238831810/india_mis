@@ -1,6 +1,6 @@
 module.exports = {
     publicPath:process.env.VUE_APP_TITLE,
-    outputDir: 'user-mis',
+    outputDir: 'mis',
     lintOnSave: false,
     productionSourceMap:true,
     configureWebpack: {
