@@ -64,6 +64,10 @@ const router = new Router({
                     path: 'consume/list',
                     component: () => import('./views/consume/list.vue')
                 },
+                {
+                    path: 'order/list',
+                    component: () => import('./views/order/list.vue')
+                },
             ]
         },
     ]

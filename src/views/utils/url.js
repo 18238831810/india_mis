@@ -19,6 +19,9 @@ export default {
   consume:{
     query: `${base.url}/admin/consume/queryList`,
   },
+  order:{
+    query: `${base.url}/admin/order/queryList`,
+  },
 
 };
 
