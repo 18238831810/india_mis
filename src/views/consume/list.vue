@@ -12,8 +12,7 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
-    let paymentIdList = {1:"UPI"};
-    let statusList = {0:"未完成",1:"失败",2:"成功"};
+    let typeList = {1:"打赏主播"};
     export default {
         name: 'list',
         components: {
@@ -40,37 +39,60 @@
                   hasLable: true,
                   cols:[
                     { title: "用户账号", field: 'uid'},
+                    { title: "主播账号", field: 'coverId'},
                     {click:"查询"},
                   ]
                 },
                 /*table生成*/
                 pageData: {
                   sequence: true,
-                  queryUrl: URL.cashin.query, //请求路径和参数
+                  queryUrl: URL.consume.query, //请求路径和参数
                   cols: [
                       { title: "用户账号", field: 'uid'},
-                      { title: "支付类型", field: 'paymentId',render:(data,full)=>{
-                          return paymentIdList[data];
+                      { title: "主播账号", field: 'coverId'},
+                      { title: "消费类型", field: 'type',render:(data,full)=>{
+                          return typeList[data];
                         }},
-                      { title: "订单号", field: 'orderSn'},
-                      { title: "支付平台订单号", field: 'ptOrderSn'},
-                      { title: "订单金额", field: 'amount'},
-                      { title: "实际存款金额", field: 'realAmount'},
-                      { title: "支付方UPI", field: 'payerAccount'},
-                      { title: "商品信息", field: 'goodsInfo'},
-                      { title: "客户端ip", field: 'ip'},
-                      { title: "订单时间", field: 'orderTime',render:(data,full)=>{
-                          return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
-                        }},
-                      { title: "实际到账时间", field: 'dealTime',render:(data,full)=>{
-                          return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
-                        }},
-                      { title: "订单状态", field: 'status',render:(data,full)=>{
-                          return statusList[data];
-                        }},
+                      { title: "用户消费金额", field: 'totalAmount'},
+                      { title: "主播收益金额", field: 'coverAmount'},
+                      { title: "备注", field: 'remark'},
+                      { title: "打赏时间", field: 'createTime',render:(data,full)=> {
+                          return DateUtil.formatDate(data, "yyyy-MM-dd hh:mm:ss");
+                        }}
                   ]
                 }
             }
         }
     }
 </script>
+/**
+* 消费用户id
+*/
+private Long uid;
+
+/**
+* 被消费人id
+*/
+private Long coverId;
+
+/**
+* 消费金额
+*/
+private BigDecimal totalAmount;
+
+/**
+* 收益金额
+*/
+private BigDecimal coverAmount;
+
+/**
+* 消费类型（1:赠送礼物，即打赏主播）
+*/
+private Integer type;
+
+private Long createTime;
+
+/**
+* 备注
+*/
+private String remark;

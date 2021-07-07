@@ -48,6 +48,22 @@ const router = new Router({
                     path: 'cashin/list',
                     component: () => import('./views/cashin/list.vue')
                 },
+                {
+                    path: 'cashout/list',
+                    component: () => import('./views/cashout/list.vue')
+                },
+                {
+                    path: 'balance/account',
+                    component: () => import('./views/balance/account.vue')
+                },
+                {
+                    path: 'balance/anchor',
+                    component: () => import('./views/balance/anchor.vue')
+                },
+                {
+                    path: 'consume/list',
+                    component: () => import('./views/consume/list.vue')
+                },
             ]
         },
     ]

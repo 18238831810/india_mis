@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
-    <table-page ref="childTable"  :pageData="pageData"></table-page>
+    <table-page ref="childTable"  @btnclick="bthClick" :pageData="pageData"></table-page>
   </div>
 </template>
 
@@ -12,8 +12,10 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
-    let paymentIdList = {1:"UPI"};
+    import Qs from 'qs'
+    let paymentIdList = {1:"UPI代付",3:"IFSC代付"};
     let statusList = {0:"未完成",1:"失败",2:"成功"};
+    let approveStatusList = {0:"未审批",1:"已审批"};
     export default {
         name: 'list',
         components: {
@@ -27,10 +29,27 @@
                 if("查询" == clickName){
                     this.queryData = data;
                     this.$refs.childTable.defaultQueryData(data);
-                }else if(window.$t('txmis.bt.add') == clickName){
-                    this.$refs.childUpdate.open();
                 }
             },
+          bthClick(clickName, row){
+            if (clickName == "approve"){
+              this.dataChanage(URL.cashout.approve,{id:row.id},res =>{
+                if (res.code == 0){
+                  this.$message.success("suc");
+                }else{
+                  this.$message.error(res.msg);
+                }
+              });
+            }
+          },
+          dataChanage(url,option,suc,fail){
+            this.$axios.post(url, Qs.stringify(option || {})).then(res => {
+              this.$refs.childTable.defaultGetData(this.queryData);
+              if(suc && (typeof suc == 'function')) suc(res);
+            }).catch(res => {
+              if(fail && (typeof fail == 'function')) fail(res);
+            })
+          }
         },
         data () {
             return {
@@ -46,7 +65,7 @@
                 /*table生成*/
                 pageData: {
                   sequence: true,
-                  queryUrl: URL.cashin.query, //请求路径和参数
+                  queryUrl: URL.cashout.query, //请求路径和参数
                   cols: [
                       { title: "用户账号", field: 'uid'},
                       { title: "支付类型", field: 'paymentId',render:(data,full)=>{
@@ -56,9 +75,11 @@
                       { title: "支付平台订单号", field: 'ptOrderSn'},
                       { title: "订单金额", field: 'amount'},
                       { title: "实际存款金额", field: 'realAmount'},
-                      { title: "支付方UPI", field: 'payerAccount'},
-                      { title: "商品信息", field: 'goodsInfo'},
-                      { title: "客户端ip", field: 'ip'},
+                      { title: "IFSC编码", field: 'payerIfsc'},
+                      { title: "收款人手机号", field: 'payerMobile'},
+                      { title: "收款人名称", field: 'payerName'},
+                      { title: "收款人账号", field: 'payerAccount'},
+                      { title: "备注", field: 'remark'},
                       { title: "订单时间", field: 'orderTime',render:(data,full)=>{
                           return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
                         }},
@@ -68,9 +89,17 @@
                       { title: "订单状态", field: 'status',render:(data,full)=>{
                           return statusList[data];
                         }},
+                    { title: "审批状态", field: 'approveStatus',render:(data,full)=>{
+                        return approveStatusList[data];
+                      }},
+                    {field:"审批",title:"审批",size:"mini",click:"approve",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
+                      return  full.approveStatus == 1;
+                      }},
                   ]
                 }
             }
         }
     }
 </script>
+
+

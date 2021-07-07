@@ -9,6 +9,16 @@ export default {
   cashin: {
     query: `${base.url}/admin/cashin/queryList`,
   },
+  cashout: {
+    query: `${base.url}/admin/cashout/queryList`,
+    approve: `${base.url}/admin/cashout/approve`,
+  },
+  balance:{
+    query: `${base.url}/admin/balance/queryList`,
+  },
+  consume:{
+    query: `${base.url}/admin/consume/queryList`,
+  },
 
 };
 
