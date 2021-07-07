@@ -2,6 +2,9 @@
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
     <table-page ref="childTable"  :pageData="pageData"></table-page>
+    <div>
+      <span>盈亏总额: {{totalAmount}}</span>
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,7 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
+    import Qs from 'qs'
     let statusList = {0:"刚生成",1:"处理","-1":"撤销订单"};
     let buyDirectionList = {rise:"涨",fall:"跌",equal:"等于"};
     export default {
@@ -27,13 +31,17 @@
                 if("查询" == clickName){
                     this.queryData = data;
                     this.$refs.childTable.defaultQueryData(data);
-                }else if(window.$t('txmis.bt.add') == clickName){
-                    this.$refs.childUpdate.open();
+                }else if("统计" == clickName){
+                    this.totalAmount = "--";
+                    this.$axios.post(URL.order.totalCount, Qs.stringify(data)).then(res => {
+                        if (res.code == 0) this.totalAmount = res.data;
+                    })
                 }
             },
         },
         data () {
             return {
+                totalAmount:"--",
                 queryData:{},
                 /*from查询表单*/
                 formData:{
@@ -43,6 +51,7 @@
                     { title: "开始时间", field: 'startTime',type: 5},
                     { title: "结束时间", field: 'endTime',type: 5},
                     {click:"查询"},
+                    {click:"统计"},
                   ]
                 },
                 /*table生成*/

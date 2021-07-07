@@ -2,6 +2,9 @@
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
     <table-page ref="childTable"  @btnclick="bthClick" :pageData="pageData"></table-page>
+    <div>
+      <span>提现总额: {{totalAmount}}</span>
+    </div>
   </div>
 </template>
 
@@ -29,6 +32,11 @@
                 if("查询" == clickName){
                     this.queryData = data;
                     this.$refs.childTable.defaultQueryData(data);
+                }else if("统计" == clickName){
+                  this.totalAmount = "--";
+                  this.$axios.post(URL.cashout.totalCount, Qs.stringify(data)).then(res => {
+                    if (res.code == 0) this.totalAmount = res.data;
+                  })
                 }
             },
           bthClick(clickName, row){
@@ -53,6 +61,7 @@
         },
         data () {
             return {
+                totalAmount:"--",
                 queryData:{},
                 /*from查询表单*/
                 formData:{
@@ -63,6 +72,7 @@
                     { title: "开始时间", field: 'startTime',type: 5},
                     { title: "结束时间", field: 'endTime',type: 5},
                     {click:"查询"},
+                    {click:"统计"},
                   ]
                 },
                 /*table生成*/
