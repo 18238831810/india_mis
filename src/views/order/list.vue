@@ -40,6 +40,8 @@
                   hasLable: true,
                   cols:[
                     { title: "用户账号", field: 'uid'},
+                    { title: "开始时间", field: 'startTime',type: 5},
+                    { title: "结束时间", field: 'endTime',type: 5},
                     {click:"查询"},
                   ]
                 },

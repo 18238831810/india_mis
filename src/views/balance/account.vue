@@ -47,9 +47,10 @@
                   queryUrl: URL.balance.query, //请求路径和参数
                   cols: [
                       { title: "用户账号", field: 'uid'},
+                      { title: "手机号", field: 'phone'},
                       { title: "用户余额", field: 'amount'},
-                      { title: "打赏收益", field: 'consumeCount'},
-                      { title: "交易流水分层", field: 'orderCount'},
+                      /*{ title: "打赏收益", field: 'consumeCount'},
+                      { title: "交易流水分层", field: 'orderCount'},*/
                       { title: "更新时间", field: 'updateTime',render:(data,full)=>{
                           return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
                         }},
