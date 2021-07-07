@@ -65,34 +65,3 @@
         }
     }
 </script>
-/**
-* 消费用户id
-*/
-private Long uid;
-
-/**
-* 被消费人id
-*/
-private Long coverId;
-
-/**
-* 消费金额
-*/
-private BigDecimal totalAmount;
-
-/**
-* 收益金额
-*/
-private BigDecimal coverAmount;
-
-/**
-* 消费类型（1:赠送礼物，即打赏主播）
-*/
-private Integer type;
-
-private Long createTime;
-
-/**
-* 备注
-*/
-private String remark;
