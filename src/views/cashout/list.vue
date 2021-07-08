@@ -15,6 +15,7 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
+    import download from '@/utils/download.js'
     import Qs from 'qs'
     let paymentIdList = {1:"UPI代付",3:"IFSC代付"};
     let statusList = {0:"未完成",1:"失败",2:"成功"};
@@ -37,6 +38,8 @@
                   this.$axios.post(URL.cashout.totalCount, Qs.stringify(data)).then(res => {
                     if (res.code == 0) this.totalAmount = res.data;
                   })
+                }else if("导出" == clickName){
+                  download.exportExcel(URL.cashout.export,data,"提现记录表");
                 }
             },
           bthClick(clickName, row){
@@ -73,6 +76,7 @@
                     { title: "结束时间", field: 'endTime',type: 5},
                     {click:"查询"},
                     {click:"统计"},
+                    {click:"导出"},
                   ]
                 },
                 /*table生成*/

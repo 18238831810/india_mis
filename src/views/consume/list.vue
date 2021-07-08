@@ -15,6 +15,7 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
+    import download from '@/utils/download.js'
     import Qs from 'qs'
     let typeList = {1:"打赏主播"};
     export default {
@@ -35,6 +36,8 @@
                   this.$axios.post(URL.consume.totalCount, Qs.stringify(data)).then(res => {
                     if (res.code == 0) this.totalAmount = res.data;
                   })
+                }else if("导出" == clickName){
+                  download.exportExcel(URL.consume.export,data,"打赏记录表");
                 }
             },
         },
@@ -52,6 +55,7 @@
                     { title: "结束时间", field: 'endTime',type: 5},
                     {click:"查询"},
                     {click:"统计"},
+                    {click:"导出"},
                   ]
                 },
                 /*table生成*/

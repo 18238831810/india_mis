@@ -12,7 +12,7 @@
     import UPDATE from '@/components/page/update.vue'
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
-    import Qs from 'qs'
+    import download from '@/utils/download.js'
     export default {
         name: 'list',
         components: {
@@ -26,6 +26,8 @@
                 if("查询" == clickName){
                     this.queryData = data;
                     this.$refs.childTable.defaultQueryData(data);
+                }else if("导出" == clickName){
+                  download.exportExcel(URL.balance.export,data,"用户资金表");
                 }
             },
         },
@@ -39,6 +41,7 @@
                     { title: "用户类型", field: 'type',data: 0,hidden:true},
                     { title: "用户账号", field: 'uid'},
                     {click:"查询"},
+                    {click:"导出"},
                   ]
                 },
                 /*table生成*/
