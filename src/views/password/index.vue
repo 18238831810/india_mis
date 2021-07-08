@@ -1,8 +1,8 @@
 <template>
     <div>
-        {{user.username}}
-        <el-button type="info" @click="formShow=true">修改密码</el-button>
-        <el-button type="info" @click="logout()">退出登录</el-button>
+        {{user.tUserName}}
+        <!--<el-button type="info" @click="formShow=true">修改密码</el-button>-->
+        <el-button type="primary" @click="logout()">退出登录</el-button>
         <el-dialog title="更改密码" :visible.sync="formShow" width="40%">
             <el-form :model="form" class="demo-form-inline">
                 <el-form-item label="原始密码">
@@ -58,13 +58,13 @@
                 );
             },
             logout(){
-                this.axios.get(base.baseURI.base+"/mis/user/logout").then(
+                this.axios.get(base.baseURI.base+"/admin/user/logout").then(
                     res => {
-                        if (res.status == 200 && res.data.code == 200) {
+                        if (res.code == 0) {
                             this.$store.dispatch("setUser",{});
                             router.push('/login');
                         }else{
-                            this.$alert(res.data.code_desc, '修改操作', {
+                            this.$alert(res.data.msg, '修改操作', {
                                 confirmButtonText: '确定',
                             });
                         }
