@@ -2,6 +2,7 @@
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
     <table-page ref="childTable"  @btnclick="bthClick"  :pageData="pageData"></table-page>
+    <UPDATE  ref="childUpdate"  @submit="submit" :updateData="updateData"></UPDATE>
   </div>
 </template>
 
@@ -39,7 +40,19 @@
                   this.$message.error(res.msg);
                 }
               });
+            }else if (clickName == "updateFee"){
+                this.$refs.childUpdate.open(row);
             }
+          },
+          submit(model){
+              this.dataChanage(URL.account.updateFee,model,res => {
+                  if (res.code == 0){
+                      this.$refs.childUpdate.close();
+                      this.$message.success("suc");
+                  }else{
+                      this.$message.error(res.message);
+                  }
+              })
           },
           dataChanage(url,option,suc,fail){
             this.$axios.post(url, Qs.stringify(option || {})).then(res => {
@@ -62,6 +75,12 @@
                     {click:"查询"},
                   ]
                 },
+                updateData:{
+                    cols:[
+                        { title: 'tId', field: 'tId',hidden:true},
+                        { title: "收费标准(/min)", field: 'tFeeStandard'},
+                    ],
+                },
                 /*table生成*/
                 pageData: {
                   sequence: true,
@@ -80,6 +99,8 @@
                       { title: "录播状态", field: 'tRecord',render:(data,full)=>{
                           return recordList[data];
                         }},
+                      { title: "收费标准(/min)", field: 'tFeeStandard'},
+                      {field:"收费设置",title:"操作",size:"mini",click:"updateFee",type:"primary",icon:"el-icon-edit"},
                       {field:"切换录播状态",title:"操作",size:"mini",click:"recordStauts",type:"primary",icon:"el-icon-edit"},
                   ]
                 }

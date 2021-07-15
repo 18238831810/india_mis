@@ -34,7 +34,12 @@ export default {
   account:{
     query: `${base.url}/admin/account/queryList`,
     updateRecordStatus: `${base.url}/admin/account/updateRecordStatus`,
-  }
+    updateFee: `${base.url}/admin/account/updateFee`,
+  },
+  promotionRebate:{
+    query: `${base.url}/admin/promotionRebate/queryList`,
+    updateSetting: `${base.url}/admin/promotionRebate/updateSetting`,
+  },
 
 };
 

@@ -72,6 +72,10 @@ const router = new Router({
                     path: 'account/anchorList',
                     component: () => import('./views/account/anchorList.vue')
                 },
+                {
+                    path: 'promotionRebate/setting',
+                    component: () => import('./views/promotionRebate/setting.vue')
+                },
             ]
         },
     ]
