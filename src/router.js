@@ -68,6 +68,10 @@ const router = new Router({
                     path: 'order/list',
                     component: () => import('./views/order/list.vue')
                 },
+                {
+                    path: 'account/anchorList',
+                    component: () => import('./views/account/anchorList.vue')
+                },
             ]
         },
     ]

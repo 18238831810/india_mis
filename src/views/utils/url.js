@@ -31,6 +31,10 @@ export default {
     totalCount: `${base.url}/admin/order/queryTotalAmount`,
     export: `${base.url}/admin/order/export`,
   },
+  account:{
+    query: `${base.url}/admin/account/queryList`,
+    updateRecordStatus: `${base.url}/admin/account/updateRecordStatus`,
+  }
 
 };
 
