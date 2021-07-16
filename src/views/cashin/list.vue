@@ -100,7 +100,7 @@
                           return statusList[data];
                         }},
                     {field:"推广奖励",title:"操作",size:"mini",click:"cashinRebate",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
-                        return  full.status == 1;
+                        return  full.status != 2;
                       }},
                   ]
                 }
