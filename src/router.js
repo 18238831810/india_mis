@@ -73,8 +73,16 @@ const router = new Router({
                     component: () => import('./views/account/anchorList.vue')
                 },
                 {
+                    path: 'account/accountList',
+                    component: () => import('./views/account/accountList.vue')
+                },
+                {
                     path: 'promotionRebate/setting',
                     component: () => import('./views/promotionRebate/setting.vue')
+                },
+                {
+                    path: 'cashinRebate/list',
+                    component: () => import('./views/promotionRebate/list.vue')
                 },
             ]
         },

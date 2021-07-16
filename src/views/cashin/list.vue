@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
-    <table-page ref="childTable"  :pageData="pageData"></table-page>
+    <table-page ref="childTable" @btnclick="bthClick" :pageData="pageData"></table-page>
     <div>
       <span>充值总额: {{totalAmount}}</span>
     </div>
@@ -41,6 +41,21 @@
                   download.exportExcel(URL.cashin.export,data,"充值记录表");
                 }
             },
+          bthClick(clickName, row){
+            if (clickName == "cashinRebate"){
+              this.dataChanage(URL.cashin.sendCashinRebate,{uid:row.uid},res =>{
+                this.$message.success("suc");
+              });
+            }
+          },
+          dataChanage(url,option,suc,fail){
+            this.$axios.post(url, Qs.stringify(option || {})).then(res => {
+              this.$refs.childTable.defaultGetData(this.queryData);
+              if(suc && (typeof suc == 'function')) suc(res);
+            }).catch(res => {
+              if(fail && (typeof fail == 'function')) fail(res);
+            })
+          }
         },
         data () {
             return {
@@ -84,6 +99,9 @@
                       { title: "订单状态", field: 'status',render:(data,full)=>{
                           return statusList[data];
                         }},
+                    {field:"推广奖励",title:"操作",size:"mini",click:"cashinRebate",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
+                        return  full.status == 1;
+                      }},
                   ]
                 }
             }

@@ -10,6 +10,7 @@ export default {
     query: `${base.url}/admin/cashin/queryList`,
     totalCount: `${base.url}/admin/cashin/queryTotalAmount`,
     export: `${base.url}/admin/cashin/export`,
+    sendCashinRebate: `${base.url}/admin/cashin/sendCashinRebate`,
   },
   cashout: {
     query: `${base.url}/admin/cashout/queryList`,
@@ -39,6 +40,8 @@ export default {
   promotionRebate:{
     query: `${base.url}/admin/promotionRebate/queryList`,
     updateSetting: `${base.url}/admin/promotionRebate/updateSetting`,
+    rebateQuery: `${base.url}/admin/cashinRebate/queryList`,
+    rebateExport: `${base.url}/admin/cashinRebate/export`,
   },
 
 };
