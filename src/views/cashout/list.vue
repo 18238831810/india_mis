@@ -110,7 +110,7 @@
                         return approveStatusList[data];
                       }},
                     {field:"审批",title:"审批",size:"mini",click:"approve",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
-                      return  full.approveStatus == 2;
+                      return  full.approveStatus == 1;
                       }},
                   ]
                 }
