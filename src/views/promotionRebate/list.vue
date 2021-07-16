@@ -13,9 +13,7 @@
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
     import download from '@/utils/download.js'
-    import Qs from 'qs'
-    let paymentIdList = {1:"UPI"};
-    let statusList = {0:"未完成",1:"失败",2:"成功"};
+    let type = {0:"注册充值",1:"交易"};
     export default {
         name: 'list',
         components: {
@@ -56,6 +54,7 @@
                       { title: "直接返利金额", field: 'cashinDirect'},
                       { title: "间接推荐人", field: 'indirect'},
                       { title: "间接返利金额", field: 'cashinIndirect'},
+                      { title: "返利类型", field: 'type'},
                       { title: "返利时间", field: 'createTime',render:(data,full)=>{
                           return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
                         }},
@@ -65,22 +64,3 @@
         }
     }
 </script>
-@Excel(name = "直接推荐人")
-@ApiModelProperty(value = "直接推荐人")
-private Long direct;
-
-@Excel(name = "间接推荐人")
-@ApiModelProperty(value = "间接推荐人")
-private Long indirect;
-
-@Excel(name = "直接返利金额")
-@ApiModelProperty(value = "直接返利金额")
-private BigDecimal cashinDirect;
-
-@Excel(name = "间接返利金额")
-@ApiModelProperty(value = "间接返利金额")
-private BigDecimal cashinIndirect;
-
-@Excel(name = "返利时间",dict = "t_yyyy-MM-dd HH:mm:ss")
-@ApiModelProperty(value = "返利时间")
-private Long createTime;
