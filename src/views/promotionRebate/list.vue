@@ -13,7 +13,7 @@
     import URL from '@/views/utils/url'
     import DateUtil from '@/utils/dataTimeUtil.js'
     import download from '@/utils/download.js'
-    let type = {0:"注册充值",1:"交易"};
+    let typeList = {0:"注册充值",1:"交易"};
     export default {
         name: 'list',
         components: {
@@ -54,7 +54,9 @@
                       { title: "直接返利金额", field: 'cashinDirect'},
                       { title: "间接推荐人", field: 'indirect'},
                       { title: "间接返利金额", field: 'cashinIndirect'},
-                      { title: "返利类型", field: 'type'},
+                      { title: "返利类型", field: 'type',render:(data,full)=>{
+                          return typeList[data];
+                        }},
                       { title: "返利时间", field: 'createTime',render:(data,full)=>{
                           return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
                         }},
