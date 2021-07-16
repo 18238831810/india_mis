@@ -97,12 +97,6 @@
                       { title: "用户状态", field: 'tDisable',render:(data,full)=>{
                           return statusList[data];
                         }},
-                      { title: "录播状态", field: 'tRecord',render:(data,full)=>{
-                          return recordList[data];
-                        }},
-                      { title: "收费标准(/min)", field: 'tFeeStandard'},
-                      {field:"收费设置",title:"操作",size:"mini",click:"updateFee",type:"primary",icon:"el-icon-edit"},
-                      {field:"切换录播状态",title:"操作",size:"mini",click:"recordStauts",type:"primary",icon:"el-icon-edit"},
                   ]
                 }
             }
