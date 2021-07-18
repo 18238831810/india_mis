@@ -78,7 +78,8 @@
                 updateData:{
                     cols:[
                         { title: 'tId', field: 'tId',hidden:true},
-                        { title: "收费标准(/min)", field: 'tFeeStandard'},
+                        { title: "直播收费标准(/min)", field: 'tFeeStandard'},
+                        { title: "直播分层比例(%)", field: 'tFeeRadio'},
                     ],
                 },
                 /*table生成*/
@@ -99,7 +100,8 @@
                       { title: "录播状态", field: 'tRecord',render:(data,full)=>{
                           return recordList[data];
                         }},
-                      { title: "收费标准(/min)", field: 'tFeeStandard'},
+                      { title: "直播收费标准(/min)", field: 'tFeeStandard'},
+                      { title: "直播分层比例(%)", field: 'tFeeRadio'},
                       {field:"收费设置",title:"操作",size:"mini",click:"updateFee",type:"primary",icon:"el-icon-edit"},
                       {field:"切换录播状态",title:"操作",size:"mini",click:"recordStauts",type:"primary",icon:"el-icon-edit"},
                   ]

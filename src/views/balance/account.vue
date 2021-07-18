@@ -52,8 +52,8 @@
                       { title: "用户账号", field: 'uid'},
                       { title: "手机号", field: 'phone'},
                       { title: "用户余额", field: 'amount'},
-                      /*{ title: "打赏收益", field: 'consumeCount'},
-                      { title: "交易流水分层", field: 'orderCount'},*/
+                      { title: "注册充值推广收益", field: 'cashinRebateCount'},
+                      { title: "交易下单推广收益", field: 'orderRebateCount'},
                       { title: "更新时间", field: 'updateTime',render:(data,full)=>{
                           return DateUtil.formatDate(data,"yyyy-MM-dd hh:mm:ss");
                         }},
