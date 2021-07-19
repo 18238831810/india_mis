@@ -43,6 +43,10 @@ export default {
     rebateQuery: `${base.url}/admin/cashinRebate/queryList`,
     rebateExport: `${base.url}/admin/cashinRebate/export`,
   },
+  liveWatch:{
+    query: `${base.url}/admin/liveWatchFee/queryList`,
+    queryResult: `${base.url}/admin/liveWatchFee/queryResultList`,
+  }
 
 };
 

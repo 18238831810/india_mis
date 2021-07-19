@@ -84,6 +84,14 @@ const router = new Router({
                     path: 'cashinRebate/list',
                     component: () => import('./views/promotionRebate/list.vue')
                 },
+                {
+                    path: 'liveWatch/list',
+                    component: () => import('./views/liveWatch/list.vue')
+                },
+                {
+                    path: 'liveWatch/result',
+                    component: () => import('./views/liveWatch/result.vue')
+                },
             ]
         },
     ]
