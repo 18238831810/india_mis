@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <FORM  ref="childForm"  @formclick="formclick" :formData="formData"></FORM>
-    <table-page ref="childTable"  :pageData="pageData"></table-page>
+    <table-page ref="childTable" @btnclick="bthClick" :pageData="pageData"></table-page>
     <div>
       <span>盈亏总额: {{totalAmount}}</span>
     </div>
@@ -27,20 +27,39 @@
             UPDATE
         },
         methods: {
-            /*查询表单按钮点击事件*/
-            formclick(clickName, data){
-                if("查询" == clickName){
-                    this.queryData = data;
-                    this.$refs.childTable.defaultQueryData(data);
-                }else if("统计" == clickName){
-                    this.totalAmount = "--";
-                    this.$axios.post(URL.order.totalCount, Qs.stringify(data)).then(res => {
-                        if (res.code == 0) this.totalAmount = res.data;
-                    })
-                }else if("导出" == clickName){
-                  download.exportExcel(URL.order.export,data,"交易明细表");
-                }
-            },
+          /*查询表单按钮点击事件*/
+          formclick(clickName, data){
+              if("查询" == clickName){
+                  this.queryData = data;
+                  this.$refs.childTable.defaultQueryData(data);
+              }else if("统计" == clickName){
+                  this.totalAmount = "--";
+                  this.$axios.post(URL.order.totalCount, Qs.stringify(data)).then(res => {
+                      if (res.code == 0) this.totalAmount = res.data;
+                  })
+              }else if("导出" == clickName){
+                download.exportExcel(URL.order.export,data,"交易明细表");
+              }
+          },
+          bthClick(clickName, row){
+            if (clickName == "sendMessage"){
+              this.dataChanage(URL.order.sendMessage,{id:row.id},res =>{
+                this.$message.success("suc");
+              });
+            }else if (clickName == "sendProfitMessage"){
+              this.dataChanage(URL.order.sendProfitMessage,{id:row.id},res =>{
+                this.$message.success("suc");
+              });
+            }
+          },
+          dataChanage(url,option,suc,fail){
+            this.$axios.post(url, Qs.stringify(option || {})).then(res => {
+              this.$refs.childTable.defaultGetData(this.queryData);
+              if(suc && (typeof suc == 'function')) suc(res);
+            }).catch(res => {
+              if(fail && (typeof fail == 'function')) fail(res);
+            })
+          }
         },
         data () {
             return {
@@ -84,8 +103,12 @@
                       { title: "创建时间", field: 'ctime',render:(data,full)=> {
                           return DateUtil.formatDate(data, "yyyy-MM-dd hh:mm:ss");
                         }},
-                    { title: "撮合时间", field: 'utime',render:(data,full)=> {
+                      { title: "撮合时间", field: 'utime',render:(data,full)=> {
                           return DateUtil.formatDate(data, "yyyy-MM-dd hh:mm:ss");
+                        }},
+                      {field:"下单通知",title:"操作",size:"mini",click:"sendMessage",type:"primary",icon:"el-icon-edit"},
+                      {field:"盈利通知",title:"操作",size:"mini",click:"sendProfitMessage",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
+                          return  (full.status != 1 || full.profit <= 0);
                         }},
                   ]
                 }

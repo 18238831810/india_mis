@@ -99,7 +99,7 @@
                       { title: "订单状态", field: 'status',render:(data,full)=>{
                           return statusList[data];
                         }},
-                    {field:"推广奖励",title:"操作",size:"mini",click:"cashinRebate",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
+                      {field:"推广奖励",title:"操作",size:"mini",click:"cashinRebate",type:"primary",icon:"el-icon-edit",hidden:(full,data)=>{
                         return  full.status != 2;
                       }},
                   ]

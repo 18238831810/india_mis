@@ -31,6 +31,8 @@ export default {
     query: `${base.url}/admin/order/queryList`,
     totalCount: `${base.url}/admin/order/queryTotalAmount`,
     export: `${base.url}/admin/order/export`,
+    sendMessage: `${base.url}/admin/order/sendMessage`,
+    sendProfitMessage: `${base.url}/admin/order/sendProfitMessage`,
   },
   account:{
     query: `${base.url}/admin/account/queryList`,
