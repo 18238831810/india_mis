@@ -48,6 +48,13 @@ export default {
   liveWatch:{
     query: `${base.url}/admin/liveWatchFee/queryList`,
     queryResult: `${base.url}/admin/liveWatchFee/queryResultList`,
+  },
+  push:{
+    order:{
+      query:`${base.url}/admin/settingOrder/queryList`,
+      update:`${base.url}/admin/settingOrder/update`,
+      delete:`${base.url}/admin/settingOrder/delete`,
+    }
   }
 
 };

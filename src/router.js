@@ -92,6 +92,10 @@ const router = new Router({
                     path: 'liveWatch/result',
                     component: () => import('./views/liveWatch/result.vue')
                 },
+                {
+                    path: 'push/order',
+                    component: () => import('./views/push/order.vue')
+                },
             ]
         },
     ]
